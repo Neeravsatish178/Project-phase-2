@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Activity Manager</title>
+    <link rel="stylesheet" href="Assests/styles.css">
+</head>
+<body>
+    <header class="top-bar">
+      <h1 class="site-title">📘 BUNKAI</h1>
+      <a href="login.html" class="login-link">Login</a>
+    </header>
+
+    <!-- Authentication Tab (Top-right corner) -->
+    <div id="auth-section" class="auth-tab">
+        <div id="user-section" class="user-section hidden">
+            <span id="user-email"></span>
+            <button onclick="firebase.auth().signOut()" class="auth-btn">Logout</button>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard">
+        <div class="dropdown">
+            <button class="dropbtn">☰ Services</button>
+            <div class="dropdown-content">
+                <a href="attendance.html">Attendance Tracker</a>
+                <a href="cgpa.html">CGPA Calculator</a>
+            </div>
+        </div>
+
+        <h2>Student Activity Manager</h2>
+        <p>Your smart companion for academic management.</p>
+
+        <div class="about-section">
+            <h2>Why Use This Dashboard?</h2>
+            <p>Managing college life can get overwhelming — from keeping up with classes to tracking your academic performance. This dashboard brings you the ultimate simplicity and elegance in managing your academic life.</p>
+            <div class="service-highlights">
+                <div class="highlight">
+                    <h3>📊 Attendance Tracker</h3>
+                    <p>Keep track of your subject-wise attendance with real-time counters for attended and missed classes. Know how many classes you can afford to miss while maintaining the 75% minimum requirement!</p>
+                </div>
+                <div class="highlight">
+                    <h3>🎓 CGPA Calculator</h3>
+                    <p>Calculate your semester GPA with ease. Save, edit, and manage your CGPA across all semesters in one place—so you always know where you stand.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile-container">
+            <a href="attendance.html" class="tile">Attendance Tracker</a>
+            <a href="cgpa.html" class="tile">CGPA Calculator</a>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCP0XlhbK6TXu1b7VKx0jF3q3YCVjMyKAI",
+            authDomain: "attendance-tracker-c69c8.firebaseapp.com",
+            projectId: "attendance-tracker-c69c8",
+            storageBucket: "attendance-tracker-c69c8.firebasestorage.app",
+            messagingSenderId: "679805616692",
+            appId: "1:679805616692:web:62580f2711893c28370061",
+            measurementId: "G-V862XVS1LB"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        function signUp() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(() => alert('Sign-up successful! Please log in.'))
+                .catch(error => {
+                    alert('Sign-up error: ' + error.message);
+                    console.error(error);
+                });
+        }
+
+        function signIn() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    document.getElementById('login-form').classList.add('hidden');
+                    document.getElementById('user-section').classList.remove('hidden');
+                })
+                .catch(error => {
+                    alert('Login error: ' + error.message);
+                    console.error(error);
+                });
+        }
+
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById('login-form').classList.add('hidden');
+                document.getElementById('user-section').classList.remove('hidden');
+                document.getElementById('user-email').textContent = user.email;
+                document.getElementById('dashboard').style.display = 'block';
+            } else {
+                document.getElementById('login-form').classList.remove('hidden');
+                document.getElementById('user-section').classList.add('hidden');
+                document.getElementById('dashboard').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
