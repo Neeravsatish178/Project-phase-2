@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login</title>
+  <link rel="stylesheet" href="Assests/styles.css" />
+</head>
+<body>
+  <div class="top-bar">
+   <h1 class="site-title"><a href="index.html" style="text-decoration: none;color:#dabfff ;">📘 BUNKAI</h1></a>
+  </div>
+
+  <main class="content">
+    <h2>Login</h2>
+    <form id="loginForm" autocomplete="off">
+      <input
+        type="email"
+        placeholder="Email"
+        required
+        autocomplete="username"
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        required
+        autocomplete="current-password"
+      />
+      <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="register.html" style="color:#7B4DFF;">Register here</a></p>
+  </main>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  
+  <script>
+     const firebaseConfig = {
+            apiKey: "AIzaSyCP0XlhbK6TXu1b7VKx0jF3q3YCVjMyKAI",
+            authDomain: "attendance-tracker-c69c8.firebaseapp.com",
+            projectId: "attendance-tracker-c69c8",
+            storageBucket: "attendance-tracker-c69c8.firebasestorage.app",
+            messagingSenderId: "679805616692",
+            appId: "1:679805616692:web:62580f2711893c28370061",
+            measurementId: "G-V862XVS1LB"
+        };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+  <script src="Assests/login.js"></script>
+</body>
+</html>
